@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wtf_new_project/custom_indicator.dart';
+import 'package:wtf_new_project/model/onboarding_item.dart';
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key});
@@ -70,27 +71,38 @@ class _OnboardingPageState extends State<OnboardingPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            activeIndex <= 0
-                ? SizedBox(height: 0, width: 0)
-                : ElevatedButton(
-                    onPressed: () {
-                        setState(() {
-                          activeIndex = activeIndex - 1;
-                        });
-                    },
-                    child: Text("Back"),
-                  ),
-            ElevatedButton(
+            TextButton(
               onPressed: () {
-                if (activeIndex < items.length - 1){ 
-                setState(() {
-                  activeIndex = activeIndex + 1;
-                });
-              } else {
                 Navigator.of(context).pushReplacementNamed("/login");
-              }
               },
-              child: Text("Next"),
+              child: Text("Skip"),
+            ),
+
+            Row(
+              children: [
+                activeIndex <= 0
+                    ? SizedBox(height: 0, width: 0)
+                    : ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            activeIndex = activeIndex - 1;
+                          });
+                        },
+                        child: Text("Back"),
+                      ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (activeIndex < items.length - 1) {
+                      setState(() {
+                        activeIndex = activeIndex + 1;
+                      });
+                    } else {
+                      Navigator.of(context).pushReplacementNamed("/login");
+                    }
+                  },
+                  child: Text("Next"),
+                ),
+              ],
             ),
           ],
         ),
@@ -99,14 +111,3 @@ class _OnboardingPageState extends State<OnboardingPage> {
   }
 }
 
-class OnboardingItems {
-  String title;
-  String subtitle;
-  String asset;
-
-  OnboardingItems({
-    required this.title,
-    required this.subtitle,
-    required this.asset,
-  });
-}

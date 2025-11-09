@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:wtf_new_project/model/user_details.dart';
 import 'package:wtf_new_project/notifications_page.dart';
+import 'package:wtf_new_project/provider/user_notifier.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -11,6 +14,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
+    var userNotifier = Provider.of<UserNotifier>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text("Profile"),
@@ -36,7 +40,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 borderRadius: BorderRadius.circular(8.0),
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, "/login");
+            },
             icon: Icon(Icons.logout),
             label: Text("Logout"),
           ),
@@ -45,7 +51,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Column _BuildSupportDetails() {
+  Widget _BuildSupportDetails() {
     return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -66,7 +72,7 @@ class _ProfilePageState extends State<ProfilePage> {
         );
   }
 
-  Column _BuildAccountDetails() {
+  Widget _BuildAccountDetails() {
     return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -103,7 +109,7 @@ class _ProfilePageState extends State<ProfilePage> {
         );
   }
 
-  Container _profileDetails() {
+  Widget _profileDetails() {
     return Container(
       decoration: BoxDecoration(shape: BoxShape.circle),
       clipBehavior: Clip.hardEdge,
@@ -111,16 +117,21 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Column _buildDetails() {
+  Widget _buildDetails() {
+    UserDetails? user = Provider.of<UserNotifier>(context).loggedInUser;
+    if (user == null) return Text("User Details not set");
+   // var userNotifier = Provider.of<UserNotifier>(context);
     return Column(
       children: [
         Text(
-          "Brianna Chisom",
+         user.name,
+         //userNotifier.loggedInUser!.name,
           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
         ),
 
         Text(
-          "chizzygeorge4@gmail.com",
+          user.email,
+          //userNotifier.loggedInUser!.email,
           style: TextStyle(fontWeight: FontWeight.w300, fontSize: 12),
         ),
       ],

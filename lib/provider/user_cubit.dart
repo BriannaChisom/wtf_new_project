@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wtf_new_project/data/dummy_user_details.dart';
 import 'package:wtf_new_project/model/user_details.dart';
+import 'package:wtf_new_project/snack_bar_service.dart';
 
-class UserNotifier extends ChangeNotifier{
+class UserCubit extends Cubit <UserDetails?>{
 
-  UserDetails? loggedInUser;
+  UserCubit(): super(null);
+
 
   void login (BuildContext context, String email, String password) async {
     print("Go in to login page");
@@ -14,19 +17,23 @@ class UserNotifier extends ChangeNotifier{
 
     for (var userDetails in USER_DETAILS){
       if (userDetails.email == email && userDetails.password == password) {
-        loggedInUser = userDetails;
+       // loggedInUser = userDetails;
+        emit(userDetails);
         Navigator.of(context).pushReplacementNamed("/home");
+      } else{
+        SnackBarService.showSnackBar(context, "Error logging in");
       }
     }
 
-    notifyListeners();
+   // notifyListeners();
   }
   void signup (BuildContext context, String username, String email){
-    loggedInUser = UserDetails(name: username, profilePicture: "", email: email, password: "");
-    USER_DETAILS.add(loggedInUser!);
+   emit(state);
+    UserDetails(name: username, profilePicture: "", email: email, password: "");
+    USER_DETAILS.add(state!);
     Navigator.pushReplacementNamed(context, "home");
 
-    notifyListeners();
+    //notifyListeners();
   }
 
 }

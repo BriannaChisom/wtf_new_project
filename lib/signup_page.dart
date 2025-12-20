@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:wtf_new_project/provider/user_notifier.dart';
+import 'package:wtf_new_project/provider/user_cubit.dart';
 import 'package:wtf_new_project/widgets/custom_textfield.dart';
 import 'package:wtf_new_project/widgets/password_textfield.dart';
 
@@ -24,7 +24,7 @@ class _SignupPageState extends State<SignupPage> {
   }
   @override
   Widget build(BuildContext context) {
-    var userNotifier = Provider.of<UserNotifier>(context);
+    var userNotifier = Provider.of<UserCubit>(context);
     return Scaffold(
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.0),

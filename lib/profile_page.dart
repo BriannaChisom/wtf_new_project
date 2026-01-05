@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:wtf_new_project/model/user_details.dart';
 import 'package:wtf_new_project/notifications_page.dart';
 import 'package:wtf_new_project/provider/user_notifier.dart';
-
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -14,7 +13,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    var userNotifier = Provider.of<UserNotifier>(context);
+    var userProvider = Provider.of<UserNotifier>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text("Profile"),
@@ -41,6 +40,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             onPressed: () {
+              userProvider.logout();
               Navigator.pushReplacementNamed(context, "/login");
             },
             icon: Icon(Icons.logout),
@@ -110,6 +110,8 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget _profileDetails() {
+    UserDetails? user = Provider.of<UserNotifier>(context).loggedInUser;
+
     return Container(
       decoration: BoxDecoration(shape: BoxShape.circle),
       clipBehavior: Clip.hardEdge,
@@ -120,7 +122,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget _buildDetails() {
     UserDetails? user = Provider.of<UserNotifier>(context).loggedInUser;
     if (user == null) return Text("User Details not set");
-   // var userNotifier = Provider.of<UserNotifier>(context);
+
     return Column(
       children: [
         Text(

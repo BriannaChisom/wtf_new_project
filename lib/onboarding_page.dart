@@ -24,7 +24,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
     OnboardingItems(
       title: "Get emergency medical help fast",
       subtitle:
-          "Wherever you are, Need urgent help? We'll connect you to the nearerst available hsopital",
+          "Wherever you are, Need urgent help? We'll connect you to the nearerst available hospital",
       asset: "assets/Onboarding_Image.jpg",
     ),
 
@@ -41,30 +41,32 @@ class _OnboardingPageState extends State<OnboardingPage> {
     var OnboardingItemToShow = items[activeIndex];
 
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        spacing: 8,
-        children: [
-          CustomIndicator(
-            indicatorCount: items.length,
-            activeIndex: activeIndex,
-          ),
-          Image.asset(OnboardingItemToShow.asset, width: 400, height: 400),
-          Text(
-            OnboardingItemToShow.title,
-            style: GoogleFonts.aDLaMDisplay(
-              fontWeight: FontWeight.w600,
-              fontSize: 32,
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          spacing: 4,
+          children: [
+            CustomIndicator(
+              indicatorCount: items.length,
+              activeIndex: activeIndex,
             ),
-            textAlign: TextAlign.center,
-          ),
-          Text(
-            OnboardingItemToShow.subtitle,
-            style: GoogleFonts.k2d(fontSize: 16),
-            textAlign: TextAlign.center,
-          ),
-        ],
+            Image.asset(OnboardingItemToShow.asset, width: 400, height: 370),
+            Text(
+              OnboardingItemToShow.title,
+              style: GoogleFonts.aDLaMDisplay(
+                fontWeight: FontWeight.w600,
+                fontSize: 32,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              OnboardingItemToShow.subtitle,
+              style: GoogleFonts.k2d(fontSize: 16),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16.0),

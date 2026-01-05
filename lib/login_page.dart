@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:wtf_new_project/provider/user_notifier.dart';
+import 'package:wtf_new_project/widgets/custom_button.dart';
 import 'package:wtf_new_project/widgets/custom_textfield.dart';
 import 'package:wtf_new_project/widgets/password_textfield.dart';
+import 'package:wtf_new_project/widgets/social_signin.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -55,57 +57,24 @@ class _LoginPageState extends State<LoginPage> {
             PasswordTextfield(label: "Password", textEditingController: passwordController),
             SizedBox(height: 16),
 
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                fixedSize: Size(400, 55),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                backgroundColor: Colors.blue,
-                foregroundColor: Colors.white,
-              ),
-              onPressed: () {
-                userNotifier.login(context, emailController.text, passwordController.text);
-                
-                //Navigator.of(context).pushReplacementNamed("/home");
-                
-              },
-              child: Text("Login"),
-            ),
+           CustomButton(text: "Login",
+           onPressed: (){
+            userNotifier.login(context, 
+            emailController.text, 
+            passwordController.text);
+            Navigator.of(context).pushReplacementNamed("/home");
+           }),
             //width: MediaQuery.sizeOf(context).width,
             // These two will enable the ion feet the user's screen.
-            SizedBox(height: 24),
-            Row(
-              spacing: 8,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Expanded(child: Divider()),
-                Text("Sign up with"),
-                Expanded(child: Divider()),
-              ],
-            ),
+            //SizedBox(height: 8),
+
+            TextButton(onPressed: (){
+              Navigator.of(context).pushReplacementNamed("/forgot");
+            }, 
+            child: Text("Forgot Password?")),
+
             SizedBox(height: 16),
-
-           // Wrap(
-             //   spacing: 10,
-               // children: [
-                 // FlutterSocialButton(buttonType: ButtonType.facebook, onTap: () {}),
-                 // FlutterSocialButton(buttonType: ButtonType.twitter, onTap: () {}),
-                 // FlutterSocialButton(buttonType: ButtonType.google, onTap: () {}),
-                 // FlutterSocialButton(buttonType: ButtonType.apple, onTap: () {}),
-                //],
-              //), This can also be used.
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                spacing: 12,
-                children: [
-                  GestureDetector(onTap: (){}, child: Image.asset("assets/facebook.png", width: 50, height: 50)),
-                  GestureDetector(onTap: (){}, child: Image.asset("assets/x.png", width: 50, height: 50)),
-                  GestureDetector(onTap: (){}, child: Image.asset("assets/google.png", width: 50, height: 50)),
-                  GestureDetector(onTap: (){}, child: Image.asset("assets/apple.png", width: 50, height: 50))
-
-                ],
-              ),
+            SocialSignin(),
 
             SizedBox(height: 16),
 

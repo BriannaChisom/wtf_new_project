@@ -8,7 +8,7 @@ class UserNotifier extends ChangeNotifier{
 
   void login (BuildContext context, String email, String password) async {
     print("Go in to login page");
-    Future.delayed(Duration (seconds: 2));
+     Future.delayed(Duration (seconds: 2));
 
     // loggedInUser = USER_DETAILS.where((userDetails) => userDetails.email == email).toList()[0];
 
@@ -21,10 +21,16 @@ class UserNotifier extends ChangeNotifier{
 
     notifyListeners();
   }
-  void signup (BuildContext context, String username, String email){
-    loggedInUser = UserDetails(name: username, profilePicture: "", email: email, password: "");
+  void logout () async {
+    loggedInUser = null;
+    notifyListeners();
+  }
+  void signup (BuildContext context, String username, String email,
+  String password, String confirmPassword) async{
+    loggedInUser = UserDetails(name: username, profilePicture: "", email: email, password: password);
     USER_DETAILS.add(loggedInUser!);
-    Navigator.pushReplacementNamed(context, "home");
+    await Future.delayed(Duration(milliseconds: 50));
+    Navigator.pushReplacementNamed(context, "/home");
 
     notifyListeners();
   }

@@ -16,7 +16,7 @@ class _PasswordTextfieldState extends State<PasswordTextfield> {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      controller: TextEditingController(),
+      controller: widget.textEditingController,
       decoration: InputDecoration(
         labelText: "Password",
         suffixIcon: InkWell(onTap: (){

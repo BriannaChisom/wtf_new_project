@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:wtf_new_project/provider/user_notifier.dart';
+import 'package:wtf_new_project/widgets/custom_button.dart';
 import 'package:wtf_new_project/widgets/custom_textfield.dart';
 import 'package:wtf_new_project/widgets/password_textfield.dart';
+import 'package:wtf_new_project/widgets/social_signin.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -16,15 +18,19 @@ class _SignupPageState extends State<SignupPage> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
 
   @override
   void dispose() {
+    usernameController.dispose();
     emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
     super.dispose();
   }
   @override
   Widget build(BuildContext context) {
-    var userNotifier = Provider.of<UserNotifier>(context);
+    var userProv = Provider.of<UserNotifier>(context);
     return Scaffold(
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
@@ -51,24 +57,19 @@ class _SignupPageState extends State<SignupPage> {
             CustomTextField(label: "Username", textEditingController: usernameController),
             CustomTextField(label: "Email", textEditingController: emailController),
             PasswordTextfield(label: "Password", textEditingController: passwordController),
-            PasswordTextfield(label: "Confirm Password", textEditingController: passwordController),
+            PasswordTextfield(label: "Confirm Password", textEditingController: confirmPasswordController),
             
-            ElevatedButton(onPressed: (){
-            userNotifier.signup(context, usernameController.text, emailController.text);
+            CustomButton(
+              onPressed: (){
+            userProv.signup(context, 
+            usernameController.text, emailController.text, 
+            passwordController.text, 
+            confirmPasswordController.text);
+          // Navigator.of(context).pushReplacementNamed("/home");
             }, 
-            child: Text("Sign up")),
+            text: "Sign up"),
 
-            Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                spacing: 12,
-                children: [
-                  Text("Sign up using"),
-                  GestureDetector(onTap: (){}, child: Image.asset("assets/facebook.png", width: 50, height: 50)),
-                  GestureDetector(onTap: (){}, child: Image.asset("assets/x.png", width: 50, height: 50)),
-                  GestureDetector(onTap: (){}, child: Image.asset("assets/google.png", width: 50, height: 50)),
-                  GestureDetector(onTap: (){}, child: Image.asset("assets/apple.png", width: 50, height: 50)),
-                ],
-              ),
+            SocialSignin(),
 
             SizedBox(height: 16),
 

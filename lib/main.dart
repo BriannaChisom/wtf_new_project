@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:wtf_new_project/bottom_navigation.dart';
-import 'package:wtf_new_project/home_page.dart';
+import 'package:wtf_new_project/forgot_password_page.dart';
 import 'package:wtf_new_project/login_page.dart';
 import 'package:wtf_new_project/onboarding_page.dart';
 import 'package:wtf_new_project/provider/user_notifier.dart';
@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
           "/home": (context)=> BottomNavigation(),
           "/login": (context) => LoginPage(),
           "/signup": (context) => SignupPage(),
+          "/forgot": (context) => ForgotPasswordPage()
         
         },
         initialRoute: "/login",
